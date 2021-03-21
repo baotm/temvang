@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/hoadons",
+      "handler": "hoadon.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/hoadons/count",
+      "handler": "hoadon.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/hoadons/:id",
+      "handler": "hoadon.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/hoadons",
+      "handler": "hoadon.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/hoadons/:id",
+      "handler": "hoadon.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/hoadons/:id",
+      "handler": "hoadon.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

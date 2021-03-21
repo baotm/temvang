@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sanphams",
+  "info": {
+    "name": "sanpham",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "masanpham": {
+      "type": "string",
+      "unique": true
+    },
+    "thongtinvatly": {
+      "type": "json"
+    },
+    "tinhtrang": {
+      "type": "boolean",
+      "default": true
+    },
+    "khay": {
+      "via": "sanphams",
+      "model": "khay"
+    }
+  }
+}

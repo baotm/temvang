@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/banggias",
+      "handler": "banggia.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/banggias/count",
+      "handler": "banggia.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/banggias/:id",
+      "handler": "banggia.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/banggias",
+      "handler": "banggia.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/banggias/:id",
+      "handler": "banggia.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/banggias/:id",
+      "handler": "banggia.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

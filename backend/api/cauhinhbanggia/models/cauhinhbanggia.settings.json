@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cauhinhbanggias",
+  "info": {
+    "name": "cauhinhbanggia",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "ten": {
+      "type": "string"
+    },
+    "hienthi": {
+      "type": "string"
+    },
+    "ghichu": {
+      "type": "string",
+      "default": "không có ghi chú"
+    },
+    "cauhinhmua": {
+      "type": "boolean",
+      "default": true
+    },
+    "cauhinhban": {
+      "type": "boolean",
+      "default": true
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

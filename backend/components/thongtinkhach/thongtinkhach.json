@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_thongtinkhach_thongtinkhaches",
+  "info": {
+    "name": "thongtinkhach",
+    "icon": "address-book"
+  },
+  "options": {},
+  "attributes": {
+    "ten": {
+      "type": "string"
+    },
+    "diachi": {
+      "type": "string"
+    },
+    "sdt": {
+      "type": "string"
+    }
+  }
+}

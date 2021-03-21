@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/cauhinhgia",
+      "handler": "cauhinhgia.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/cauhinhgia",
+      "handler": "cauhinhgia.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/cauhinhgia",
+      "handler": "cauhinhgia.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

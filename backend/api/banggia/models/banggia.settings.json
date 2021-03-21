@@ -1,0 +1,17 @@
+{
+  "kind": "collectionType",
+  "collectionName": "banggias",
+  "info": {
+    "name": "banggia"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "giavang": {
+      "type": "json"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_thongtinkhay_thongtinkhays",
+  "info": {
+    "name": "thongtinkhay",
+    "icon": "apple-alt",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "vitri": {
+      "type": "string"
+    },
+    "khay": {
+      "model": "khay"
+    }
+  }
+}

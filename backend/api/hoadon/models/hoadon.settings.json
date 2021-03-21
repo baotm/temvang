@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "hoadons",
+  "info": {
+    "name": "hoadon",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "tienthanhtoan": {
+      "type": "biginteger"
+    },
+    "tonggiatri": {
+      "type": "biginteger"
+    },
+    "sanphams": {
+      "collection": "sanpham"
+    }
+  }
+}

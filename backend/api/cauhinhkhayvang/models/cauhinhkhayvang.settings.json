@@ -1,0 +1,23 @@
+{
+  "kind": "singleType",
+  "collectionName": "cauhinhkhayvangs",
+  "info": {
+    "name": "cauhinhkhayvang",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "soluongkhay": {
+      "type": "integer"
+    },
+    "thongtinkhay": {
+      "type": "component",
+      "repeatable": true,
+      "component": "thongtinkhay.thongtinkhay"
+    }
+  }
+}

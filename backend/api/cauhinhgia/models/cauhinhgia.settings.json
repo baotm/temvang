@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "cauhinhgias",
+  "info": {
+    "name": "cauhinhgia"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "ten": {
+      "type": "string"
+    },
+    "hienthi": {
+      "type": "string"
+    }
+  }
+}
