@@ -13,7 +13,13 @@ export const menuItems = [
         id: 3,
         label: "Cấu hình",
         icon: "ri-dashboard-line",
-        link: '/cauhinh/banggia'
+        link: '/cauhinh/'
+    },
+    {
+        id: 3,
+        label: "Sản phẩm",
+        icon: "ri-dashboard-line",
+        link: '/sanpham/'
     },
     {
         id: 90,

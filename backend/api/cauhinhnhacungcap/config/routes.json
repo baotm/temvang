@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/cauhinhnhacungcaps",
+      "handler": "cauhinhnhacungcap.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/cauhinhnhacungcaps/count",
+      "handler": "cauhinhnhacungcap.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/cauhinhnhacungcaps/:id",
+      "handler": "cauhinhnhacungcap.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/cauhinhnhacungcaps",
+      "handler": "cauhinhnhacungcap.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/cauhinhnhacungcaps/:id",
+      "handler": "cauhinhnhacungcap.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/cauhinhnhacungcaps/:id",
+      "handler": "cauhinhnhacungcap.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

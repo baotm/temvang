@@ -70,7 +70,9 @@ export default {
   strapi: {
     url: 'http://localhost:3002',
     entities: [
-      'cauhinhbanggias'
+      'cauhinhbanggias',
+      'cauhinhmathangs',
+      'cauhinhnhacungcaps',
     ]
   },
   i18n: {

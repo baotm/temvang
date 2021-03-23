@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cauhinhmathangs",
+  "info": {
+    "name": "cauhinhmathang",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "ten": {
+      "type": "string",
+      "unique": true
+    },
+    "mota": {
+      "type": "string"
+    },
+    "hienthi": {
+      "type": "string"
+    },
+    "viettat": {
+      "type": "string"
+    }
+  }
+}

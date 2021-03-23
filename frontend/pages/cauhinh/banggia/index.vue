@@ -5,18 +5,16 @@
           <div class="col-12">
 
 <cauhinhkieubanggia/>
+
           </div>
       </div>
 </div>
 </template>
 
 <script>
-import cauhinhkieubanggia from '../../../components/cauhinh/cauhinhkieubanggia.vue'
-
 
 export default 
 {
-  components: { cauhinhkieubanggia },
 data(){
     return{
          title: "Welcome !",
