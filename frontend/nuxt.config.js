@@ -68,6 +68,7 @@ export default {
     '@nuxtjs/strapi'
   ],
   strapi: {
+    url: 'http://localhost:3002',
     entities: [
       'cauhinhbanggias'
     ]

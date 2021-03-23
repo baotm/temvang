@@ -8,9 +8,14 @@ export const menuItems = [
         id: 2,
         label: "menuitems.trangchu.text",
         icon: "ri-dashboard-line",
-        link: '/dashboard/sales'
+        link: '/'
+    }, {
+        id: 3,
+        label: "Cấu hình",
+        icon: "ri-dashboard-line",
+        link: '/cauhinh/banggia'
     },
-        {
+    {
         id: 90,
         label: 'menuitems.icons.text',
         icon: 'ri-markup-line',
