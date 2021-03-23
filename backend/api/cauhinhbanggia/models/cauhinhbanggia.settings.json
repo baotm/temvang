@@ -12,7 +12,8 @@
   },
   "attributes": {
     "ten": {
-      "type": "string"
+      "type": "string",
+      "unique": true
     },
     "hienthi": {
       "type": "string"
@@ -21,17 +22,15 @@
       "type": "string",
       "default": "không có ghi chú"
     },
-    "cauhinhmua": {
-      "type": "boolean",
-      "default": true
-    },
-    "cauhinhban": {
-      "type": "boolean",
-      "default": true
-    },
     "active": {
       "type": "boolean",
       "default": true
+    },
+    "giamua": {
+      "type": "biginteger"
+    },
+    "giaban": {
+      "type": "biginteger"
     }
   }
 }
