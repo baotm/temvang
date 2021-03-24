@@ -5,4 +5,14 @@
  * to customize this controller
  */
 
-module.exports = {};
+module.exports = {
+    async findonlyname (ctx) {
+        const result = await strapi.query('khay').model.find().select({
+            ten: 1,
+            mota: 1,
+            soluongmon: 1,
+            hienthi: 1
+        })
+        ctx.send(result)
+    },
+};

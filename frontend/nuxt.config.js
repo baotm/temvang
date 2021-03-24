@@ -73,6 +73,7 @@ export default {
       'cauhinhbanggias',
       'cauhinhmathangs',
       'cauhinhnhacungcaps',
+      'khays'
     ]
   },
   i18n: {

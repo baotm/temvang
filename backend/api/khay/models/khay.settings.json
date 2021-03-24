@@ -11,23 +11,20 @@
     "draftAndPublish": false
   },
   "attributes": {
-    "name": {
-      "type": "string"
-    },
     "mota": {
       "type": "string"
     },
     "soluongmon": {
       "type": "integer"
     },
-    "nhanvienid": {
-      "type": "string"
-    },
     "sanphams": {
       "collection": "sanpham",
       "via": "khay"
     },
     "hienthi": {
+      "type": "string"
+    },
+    "ten": {
       "type": "string"
     }
   }

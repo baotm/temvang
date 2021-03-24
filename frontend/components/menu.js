@@ -16,7 +16,7 @@ export const menuItems = [
         link: '/cauhinh/'
     },
     {
-        id: 3,
+        id: 4,
         label: "Sản phẩm",
         icon: "ri-dashboard-line",
         link: '/sanpham/'
