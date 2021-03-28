@@ -26,6 +26,9 @@
     },
     "ghichu": {
       "type": "string"
+    },
+    "hinhdaidien": {
+      "type": "string"
     }
   }
 }

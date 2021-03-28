@@ -14,12 +14,9 @@
     "mota": {
       "type": "string"
     },
-    "soluongmon": {
-      "type": "integer"
-    },
     "sanphams": {
-      "collection": "sanpham",
-      "via": "khay"
+      "via": "khay",
+      "collection": "sanpham"
     },
     "hienthi": {
       "type": "string"

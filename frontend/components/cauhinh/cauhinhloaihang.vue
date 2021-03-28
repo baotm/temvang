@@ -24,7 +24,7 @@
           >
             <template #cell(stt)="data">
               {{ data.index + 1 }}
-          
+
             </template>
 
             <template #cell(tool)="data">
@@ -62,13 +62,17 @@
         @ok="taomoiOKloaihang"
         ref="loaihangtaomoi"
       >
-        <b-overlay :show="ov_loaihangtaomoi" rounded="sm">
+        <b-overlay
+          :show="ov_loaihangtaomoi"
+          rounded="sm"
+        >
           <b-form autocomplete="off">
             <b-form-group label="Tên tài sản:">
               <b-form-input
                 :state="state_tenloaihang"
                 v-model="kieuloaihang.ten"
                 required
+                style=" text-transform: uppercase;"
               ></b-form-input>
             </b-form-group>
             <b-form-group label="Tên hiển thi:">
@@ -83,9 +87,17 @@
                 required
               ></b-form-input>
             </b-form-group>
-
+            <b-form-group label="Ảnh đại diện:">
+              <b-form-input
+                v-model="kieuloaihang.hinhdaidien"
+                required
+              ></b-form-input>
+            </b-form-group>
             <b-form-group label="Mô tả :">
-              <b-form-input v-model="kieuloaihang.mota" required></b-form-input>
+              <b-form-input
+                v-model="kieuloaihang.mota"
+                required
+              ></b-form-input>
             </b-form-group>
           </b-form>
         </b-overlay>
@@ -132,7 +144,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       ov_loaihangtaomoi: false,
       state_tenloaihang: null,
@@ -168,30 +180,31 @@ export default {
         hienthi: "",
         viettat: "",
         ten: "",
+        hinhdaidien: '',
       },
       kieuloaihang: {
         ten: "",
         hienthi: "",
         viettat: "",
-        ten: "",
+        ten: "", hinhdaidien: '',
       },
     };
   },
   methods: {
-    setChinhsualoaihang(data) {
+    setChinhsualoaihang (data) {
       this.tempkieuloaihang = {
         id: data.item._id,
         mota: data.item.mota,
         viettat: data.item.viettat,
         ten: data.item.ten,
         hienthi: data.item.hienthi,
+        hinhdaidien: data.item.hinhdaidien
       };
     },
-    async taomoiOKloaihang(modal) {
+    async taomoiOKloaihang (modal) {
       modal.preventDefault();
       try {
         this.ov_loaihangtaomoi = true;
-        console.log(this.kieuloaihang)
         await this.$strapi.$cauhinhmathangs.create(this.kieuloaihang);
         this.ov_loaihangtaomoi = false;
         this.kieuloaihang = {
@@ -199,6 +212,7 @@ export default {
           hienthi: "",
           viettat: "",
           ten: "",
+          hinhdaidien: '',
         };
         this.$refs["loaihangtaomoi"].hide();
         this.$nuxt.refresh();
@@ -212,23 +226,23 @@ export default {
         this.state_tenloaihang = false;
       }
     },
-    async loaihangchinhsuaOK(modal) {
+    async loaihangchinhsuaOK (modal) {
       modal.preventDefault();
-    console.log(this.tempkieuloaihang)
+      console.log(this.tempkieuloaihang)
       try {
-        await this.$strapi.$cauhinhmathangs.update(this.tempkieuloaihang.id, 
+        await this.$strapi.$cauhinhmathangs.update(this.tempkieuloaihang.id,
           this.tempkieuloaihang
         );
         this.tempkieutaisan = {
-        ten: "",
-        hienthi: "",
-        viettat: "",
-        ten: "",
+          ten: "",
+          hienthi: "",
+          viettat: "",
+          ten: "",
         };
         this.$refs["loaihangchinhsua"].hide();
         this.$nuxt.refresh();
       } catch (error) {
-          console.log(error)
+        console.log(error)
         this.$bvToast.toast(`Tên tài sản đã có`, {
           title: "Thông báo",
           variant: "warning",
@@ -238,7 +252,7 @@ export default {
         this.state_tenloaihang = false;
       }
     },
-    async deleteItemloaihang(id) {
+    async deleteItemloaihang (id) {
       this.$bvModal
         .msgBoxConfirm("Bạn muốn xóa ", {
           title: "Xác nhận",
@@ -251,7 +265,7 @@ export default {
         })
         .then((value) => {
           if (value) {
-              console.log(value )
+            console.log(value)
             this.$strapi.$cauhinhmathangs.delete(id).then((a) => {
               this.$nuxt.refresh();
             });
@@ -259,7 +273,7 @@ export default {
         });
     },
   },
-  async fetch() {
+  async fetch () {
     this.listkieuloaihang = await this.$strapi.$cauhinhmathangs.find();
   },
 };

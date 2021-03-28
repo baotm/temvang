@@ -4,33 +4,25 @@
       "method": "GET",
       "path": "/sanphams",
       "handler": "sanpham.find",
-      "config": {
-        "policies": []
-      }
+      "config": {}
     },
     {
       "method": "GET",
       "path": "/sanphams/count",
       "handler": "sanpham.count",
-      "config": {
-        "policies": []
-      }
+      "config": {}
     },
     {
       "method": "GET",
       "path": "/sanphams/:id",
       "handler": "sanpham.findOne",
-      "config": {
-        "policies": []
-      }
+      "config": {}
     },
     {
       "method": "POST",
       "path": "/sanphams",
       "handler": "sanpham.create",
-      "config": {
-        "policies": []
-      }
+      "config": {}
     },
     {
       "method": "PUT",
@@ -44,9 +36,7 @@
       "method": "DELETE",
       "path": "/sanphams/:id",
       "handler": "sanpham.delete",
-      "config": {
-        "policies": []
-      }
+      "config": {}
     }
   ]
 }

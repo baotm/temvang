@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/countsanpham",
+      "handler": "countsanpham.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/countsanpham",
+      "handler": "countsanpham.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/countsanpham",
+      "handler": "countsanpham.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

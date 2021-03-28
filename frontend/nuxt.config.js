@@ -35,6 +35,8 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
+    "~/plugins/pubnub.js",
+    "~/plugins/formatSoVang.js",
     "~/plugins/simplebar.js",
     "~/plugins/vue-click-outside.js",
     "~/plugins/vuelidate.js",
@@ -57,6 +59,7 @@ export default {
   ** Nuxt.js dev-modules
   */
   buildModules: [
+    '@nuxtjs/moment',
   ],
   /*
   ** Nuxt.js modules
@@ -65,7 +68,8 @@ export default {
     // Doc: https://bootstrap-vue.js.org
     'bootstrap-vue/nuxt',
     'nuxt-i18n',
-    '@nuxtjs/strapi'
+    '@nuxtjs/strapi',
+    '@nuxtjs/axios'
   ],
   strapi: {
     url: 'http://localhost:3002',
@@ -73,7 +77,9 @@ export default {
       'cauhinhbanggias',
       'cauhinhmathangs',
       'cauhinhnhacungcaps',
-      'khays'
+      'khays',
+      'countsanpham',
+      'sanphams'
     ]
   },
   i18n: {

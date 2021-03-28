@@ -11,7 +11,7 @@
           <div class="card ribbon-box">
             <div class="card-body">
               <div class="ribbon-two ribbon-two-pink">
-                <span>Sản Phẩm</span>
+                <span>In tem</span>
               </div>
               <div class="text-center">
                 <div class="row">
@@ -20,7 +20,7 @@
                       <i class="bx bx-data font-24"></i>
                       <h3>{{tongsanpham}}</h3>
                       <p class="text-uppercase mb-1 font-13 font-weight-medium">
-                        Tổng Sản Phẩm
+                        Tổng Sản Phẩm Đã in tem
                       </p>
                     </div>
                   </div>
@@ -29,55 +29,11 @@
                       <i class="bx bx-dollar font-24"></i>
                       <h3>{{daban}}</h3>
                       <p class="text-uppercase mb-1 font-13 font-weight-medium">
-                        Đã Bán
+                        Tổng Sản Phẩm Chưa In Tem
                       </p>
                     </div>
                   </div>
-                  <div class="col">
-                    <div class="py-1">
-                      <i class="bx bx-building font-24"></i>
-                      <h3>{{tongsanpham-daban}}</h3>
-                      <p class="text-uppercase mb-1 font-13 font-weight-medium">
-                        Còn Lại
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="py-1">
-                      <i class="bx bxs-package font-24"></i>
-                      <h3>{{listnhacungcap.length}}</h3>
-                      <p class="text-uppercase mb-1 font-13 font-weight-medium">
-                        Nhà cung cấp
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="py-1">
-                      <i class="bx bx-align-justify font-24"></i>
-                      <h3>{{listbanggia.length}}</h3>
-                      <p class="text-uppercase mb-1 font-13 font-weight-medium">
-                        Kiểu sản phẩm
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="py-1">
-                      <i class="bx bx-cube font-24"></i>
-                      <h3>{{listbanggia.length}}</h3>
-                      <p class="text-uppercase mb-1 font-13 font-weight-medium">
-                        Loại vàng
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="py-1">
-                      <i class="bx bx-columns font-24"></i>
-                      <h3>{{khay}}</h3>
-                      <p class="text-uppercase mb-1 font-13 font-weight-medium">
-                        Khay
-                      </p>
-                    </div>
-                  </div>
+
                 </div>
               </div>
             </div>
@@ -89,72 +45,22 @@
             <div class="card-body">
               <div class="row mb-2">
                 <div class="col-sm-6">
+                  <b-button>In Toàn Bộ Sản Phẩm</b-button>
 
-                  <nuxt-link
-                    to="/sanpham/new"
-                    class="btn btn-danger mb-2"
-                  ><i class="mdi mdi-plus-circle mr-1"></i> Thêm sản phẩm</nuxt-link>
                 </div>
-                <div class="col-sm-6">
-                  <div class="float-sm-right">
-                    <button
-                      type="button"
-                      class="btn btn-success mb-2 mb-sm-0"
-                    ><i class="mdi mdi-cog"></i></button>
-                  </div>
-                </div><!-- end col-->
+
               </div>
-              <div class="row mb-2">
-                <div class="col-sm-12 col-md-6">
-                  <div
-                    id="tickets-table_length"
-                    class="dataTables_length"
-                  >
-                    <label class="d-inline-flex align-items-center">
-                      Display&nbsp;
-                      <b-form-select
-                        v-model="perPage"
-                        size="sm"
-                        :options="pageOptions"
-                      ></b-form-select>&nbsp;
-                    </label>
-                  </div>
-                </div>
-                <!-- Search -->
-                <div class="col-sm-12 col-md-6">
-                  <div
-                    id="tickets-table_filter"
-                    class="dataTables_filter text-md-right"
-                  >
-                    <label class="d-inline-flex align-items-center">
-                      Search:
-                      <b-form-input
-                        v-model="filter"
-                        type="search"
-                        placeholder="Search..."
-                        class="form-control form-control-sm ml-2"
-                      ></b-form-input>
-                    </label>
-                  </div>
-                </div>
-                <!-- End search -->
-              </div>
+
               <!-- Table -->
               <div class="table-responsive mb-0">
                 <b-table
                   show-empty
                   ref="table-sanpham"
-                  :busy.sync="isBusy"
                   table-class="table table-centered w-100"
                   thead-tr-class="bg-light"
-                  :items="myProvider"
+                  :items="listsanpham"
                   :fields="fields"
                   responsive="sm"
-                  :per-page="perPage"
-                  :current-page="currentPage"
-                  :filter="filter"
-                  :filter-included-fields="filterOn"
-                  @filtered="onFiltered"
                   class="text-center"
                 >
 
@@ -188,13 +94,13 @@
                   <template #cell(tool)="data">
                     <ul class="list-inline table-action m-0">
                       <li class="list-inline-item">
-                        <nuxt-link
-                          :to="'/sanpham/'+ data.item._id"
-                          class="action-icon"
-                        >
-                          <i class="mdi mdi-eye"></i>
-                        </nuxt-link>
 
+                        <a
+                          href="javascript:void(0);"
+                          class="action-icon"
+                          @click="printToPubnud(data.item._id)"
+                        >
+                          <i class="mdi mdi-cloud-print"></i></a>
                       </li>
                       <li class="list-inline-item">
                         <a
@@ -342,20 +248,7 @@
                   </template>
                 </b-table>
               </div>
-              <div class="row">
-                <div class="col">
-                  <div class="dataTables_paginate paging_simple_numbers float-right">
-                    <ul class="pagination pagination-rounded">
-                      <!-- pagination -->
-                      <b-pagination
-                        v-model="currentPage"
-                        :total-rows="rows"
-                        :per-page="perPage"
-                      ></b-pagination>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+
             </div>
           </div>
         </div>
@@ -373,13 +266,14 @@ export default {
   },
   async fetch () {
     this.ov_tablesanpham = true;
+    let p7 = this.$strapi.$sanphams.find({ soluongtem: 0 })
     let p4 = this.$strapi.$sanphams.count()
     let p5 = this.$strapi.$sanphams.count({ tinhtrang: false })
     let p1 = this.$strapi.$cauhinhnhacungcaps.find();
     let p2 = this.$strapi.$cauhinhmathangs.find();
     let p3 = this.$strapi.$cauhinhbanggias.find()
     let p6 = this.$strapi.$khays.count()
-    Promise.all([p1, p2, p3, p4, p5, p6]).then(data => {
+    Promise.all([p1, p2, p3, p4, p5, p6, p7]).then(data => {
 
       this.listnhacungcap = data[0]
       this.listloaisanpham = data[1]
@@ -388,6 +282,7 @@ export default {
       this.tongsanpham = data[3]
       this.daban = data[4]
       this.khay = data[5]
+      this.listsanpham = data[6]
       this.ov_tablesanpham = false;
     })
   },
@@ -413,14 +308,7 @@ export default {
         active: true
       }
       ],
-      totalRows: 1,
-      currentPage: 1,
-      perPage: 10,
-      pageOptions: [10, 25, 50, 100],
-      filter: null,
-      filterOn: [],
-      sortBy: "age",
-      sortDesc: false,
+
       fields: [
         {
           key: 'ten',
@@ -458,24 +346,25 @@ export default {
       ],
       listnhacungcap: [],
       listloaisanpham: [],
-      listbanggia: []
+      listbanggia: [],
+      printserver: this.$pnGetMessage('printserver')
     };
-  },
-  computed: {
-
-    rows () {
-      return this.listsanpham.length;
-    },
-
-  },
-  mounted () {
-    // Set the initial number of items
-    this.totalRows = this.items.length;
   },
   methods: {
     /**
      * Search the table data with search input
      */
+    printToPubnud (id) {
+      //send msgBoxConfirm
+      this.$pnPublish(
+        {
+          channel: 'printserver',
+          message: { entry: "intemsanpham", update: "hello from nuxt" }
+        },
+        (status, response) => console.log(status, response)
+      );
+      // console.log(this.$pnGetMessage('printserver'))
+    },
     delete_sanpham (id) {
 
       this.$bvModal
@@ -534,18 +423,13 @@ export default {
 
       return loaivang
     },
-    async myProvider (ctx) {
-      const promise = await this.$axios.$get(`http://localhost:3002/sanphams?_limit=${ctx.perPage}&_start=${(ctx.currentPage - 1) * ctx.perPage}`)
-      return promise;
-      // Must return a promise that resolves to an array of items
 
-    },
-    onFiltered (filteredItems) {
-      // Trigger pagination to update the number of buttons/pages due to filtering
-      this.totalRows = filteredItems.length;
-      this.currentPage = 1;
-    },
 
+  },
+  mounted () {
+    this.$pnSubscribe({
+      channels: ['printserver']
+    });
   },
 };
 </script>

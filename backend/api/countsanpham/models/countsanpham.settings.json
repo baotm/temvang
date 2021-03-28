@@ -1,0 +1,18 @@
+{
+  "kind": "singleType",
+  "collectionName": "countsanphams",
+  "info": {
+    "name": "Countsanpham",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "count": {
+      "type": "biginteger"
+    }
+  }
+}
