@@ -11,4 +11,8 @@ export default ({ app }, inject) => {
             return x1.toString().replace(/\B(?=(\d{2})+(?!\d))/g, "p");
         }
     });
+    inject('formatSoTien', x => {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    });
+
 }

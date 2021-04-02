@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/danhsachkhays",
+      "handler": "danhsachkhay.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/danhsachkhays/count",
+      "handler": "danhsachkhay.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/danhsachkhays/:id",
+      "handler": "danhsachkhay.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/danhsachkhays",
+      "handler": "danhsachkhay.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/danhsachkhays/:id",
+      "handler": "danhsachkhay.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/danhsachkhays/:id",
+      "handler": "danhsachkhay.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

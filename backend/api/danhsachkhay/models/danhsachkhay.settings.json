@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "khays",
+  "collectionName": "danhsachkhays",
   "info": {
-    "name": "khay",
+    "name": "danhsachkhay",
     "description": ""
   },
   "options": {
@@ -11,21 +11,18 @@
     "draftAndPublish": false
   },
   "attributes": {
-    "mota": {
+    "ten": {
       "type": "string"
-    },
-    "sanphams": {
-      "collection": "sanpham",
-      "via": "khay"
     },
     "hienthi": {
       "type": "string"
     },
-    "ten": {
-      "type": "string"
-    },
     "vitri": {
       "type": "string"
+    },
+    "active": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

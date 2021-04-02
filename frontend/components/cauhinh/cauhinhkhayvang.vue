@@ -5,7 +5,7 @@
       <div class="card-body">
         <b-button
           class="btn btn-danger mb-2 float-right mb-3"
-          v-b-modal.taomoi
+          v-b-modal.taomoikhayvang
         >
           <i class="mdi mdi-plus-circle mr-2"></i> Add New
         </b-button>
@@ -14,33 +14,28 @@
 
         <div class="table-responsive mb-0">
           <b-table
+            class="text-center"
             bordered
+            fixed
             hover
-            :busy="!kieubanggia"
+            :busy="!khays"
             head-variant="light"
-            :items="kieubanggia"
+            :items="khays"
             :fields="fields"
             :show-empty="true"
           >
             <template #cell(stt)="data">
               {{ data.index + 1 }}
             </template>
-
-            <template #cell(active)="data">
-
-              <b-form-checkbox
-                size="lg"
-                disabled
-                :checked="data.item.active"
-                switch
-              >
-              </b-form-checkbox>
+            <template #cell(sanpham)="data">
+              {{ data.item.sanphams.length }}
             </template>
+
             <template #cell(tool)="data">
 
               <b-button
                 variant="success"
-                v-b-modal.chinhsua
+                v-b-modal.chinhsuakhayvang
                 @click="setChinhsua(data)"
               >
                 <i class="fe-edit"></i>
@@ -68,49 +63,38 @@
     <div>
       <!-- modal tao moi -->
       <b-modal
-        id="taomoi"
-        title="Tạo mới loại tài sản và giá"
+        id="taomoikhayvang"
+        title="Tạo mới khay vàng"
         @ok="taomoiOK"
-        ref="taomoi"
+        ref="taomoikhayvang"
+        v-if="ov_taomoikhay"
       >
-        <b-overlay
-          :show="ov_taomoi"
-          rounded="sm"
-        >
+        <b-overlay rounded="sm">
 
           <b-form autocomplete="off">
-            <b-form-group label="Tên tài sản:">
+            <b-form-group label="Tên Khay:">
               <b-form-input
-                :state="state_tentaisan"
-                v-model="kieutaisan.ten"
+                v-model="khay.ten"
                 required
               ></b-form-input>
             </b-form-group>
             <b-form-group label="Tên hiển thi:">
               <b-form-input
-                v-model="kieutaisan.hienthi"
+                v-model="khay.hienthi"
                 required
               ></b-form-input>
             </b-form-group>
-            <b-form-row>
-              <b-col>
-                <b-form-group label="Giá Thu Vào:">
-                  <b-form-input v-model="kieutaisan.giamua"></b-form-input>
-                  <b-form-text>Giá * 1000k </b-form-text>
-                </b-form-group>
-              </b-col>
-              <b-col>
-                <b-form-group label="Giá Bán Ra:">
-                  <b-form-input v-model="kieutaisan.giaban"></b-form-input>
-                  <b-form-text>Giá * 1000k </b-form-text>
-                </b-form-group>
 
-              </b-col>
-            </b-form-row>
+            <b-form-group label="Vị trí Khay">
+              <b-form-select
+                v-model="khay.vitri"
+                :options="optionDanhsachkhays"
+              ></b-form-select>
+            </b-form-group>
 
-            <b-form-group label="Ghi Chú:">
+            <b-form-group label="Mô tả:">
               <b-form-input
-                v-model="kieutaisan.ghichu"
+                v-model="khay.mota"
                 required
               ></b-form-input>
             </b-form-group>
@@ -121,53 +105,37 @@
       <!-- end modal tao moi  -->
       <!-- modal edit  -->
       <b-modal
-        id="chinhsua"
-        title="Chỉnh sửa loại tài sản và giá"
-        ref="chinhsua"
-        @ok="chinhsuaOK"
+        id="chinhsuakhayvang"
+        title="Chỉnh Khay vàng"
+        ref="chinhsuakhayvang"
+        @ok="chinhsuakhayvangOK"
       >
         <b-form autocomplete="off">
-          <b-form-group label="Tên tài sản:">
+          <b-form-group label="Tên Khay:">
             <b-form-input
-              v-model="tempkieutaisan.ten"
+              v-model="tempkhay.ten"
               required
             ></b-form-input>
           </b-form-group>
           <b-form-group label="Tên hiển thi:">
             <b-form-input
-              v-model="tempkieutaisan.hienthi"
+              v-model="tempkhay.hienthi"
               required
             ></b-form-input>
           </b-form-group>
-          <b-form-row>
-            <b-col>
-              <b-form-group label="Giá Thu Vào:">
-                <b-form-input v-model="tempkieutaisan.giamua"></b-form-input>
-                <b-form-text>Giá * 1000k </b-form-text>
-              </b-form-group>
-            </b-col>
-            <b-col>
-              <b-form-group label="Giá Bán Ra:">
-                <b-form-input v-model="tempkieutaisan.giaban"></b-form-input>
-                <b-form-text>Giá * 1000k </b-form-text>
-              </b-form-group>
 
-            </b-col>
-            <b-col>
-              <b-form-group label="Kích hoạt:">
-                <b-form-checkbox
-                  v-model="tempkieutaisan.active"
-                  size="lg"
-                  switch
-                >
-                </b-form-checkbox>
-              </b-form-group>
+          <b-form-group label="Vị trí Khay">
+            <b-form-select
+              v-model="tempkhay.vitri"
+              :options="optionDanhsachkhays"
+            ></b-form-select>
+          </b-form-group>
 
-            </b-col>
-          </b-form-row>
-
-          <b-form-group label="Ghi Chú:">
-            <b-form-input v-model="tempkieutaisan.ghichu"></b-form-input>
+          <b-form-group label="Mô tả:">
+            <b-form-input
+              v-model="tempkhay.mota"
+              required
+            ></b-form-input>
           </b-form-group>
 
         </b-form>
@@ -182,15 +150,16 @@
 export default {
   data () {
     return {
-      ov_taomoi: false,
+      optionDanhsachkhays: [],
+      danhsachkhays: null,
+      ov_taomoikhay: false,
       state_tentaisan: null,
-      kieubanggia: null,
+      khays: null,
 
       fields: [
         {
           key: 'stt',
           label: 'Stt',
-
         },
         {
           key: 'ten',
@@ -201,107 +170,91 @@ export default {
           key: 'hienthi',
           label: 'Hiển thị'
         }, {
-          key: 'giamua',
-          label: 'Giá Mua',
+          key: 'vitri',
+          label: 'Vị Trí'
+        }, {
+          key: 'sanpham',
+          label: 'Số lượng sản phẩm',
           sortable: true
         }, {
-          key: 'giaban',
-          label: 'Giá Bán',
-          sortable: true
-        }, {
-          key: 'active',
-          label: 'Kích hoạt'
-        }, {
-          key: 'ghichu',
-          label: 'Ghi chú'
+          key: 'mota',
+          label: 'Mô tả'
         },
         {
           key: 'tool',
           label: 'Tool'
         }
       ],
-      tempkieutaisan: {
-        id: '',
-        ghichu: '',
-        giamua: 0,
-        giaban: 0,
-        active: true,
+      tempkhay: {
         ten: '',
-        tenhienthi: ''
+        hienthi: '',
+        mota: '',
+        vitri: ''
       },
-      kieutaisan: {
-        ghichu: '',
-        giamua: 0,
-        giaban: 0,
-        active: true,
+      khay: {
         ten: '',
-        tenhienthi: ''
+        hienthi: '',
+        mota: '',
+        vitri: ''
       },
     };
   },
   methods: {
     setChinhsua (data) {
-      this.tempkieutaisan = {
-        id: data.item._id,
-        ghichu: data.item.ghichu,
-        giamua: data.item.giamua,
-        giaban: data.item.giaban,
-        active: data.item.active,
+      this.tempkhay = {
         ten: data.item.ten,
-        hienthi: data.item.hienthi
+        hienthi: data.item.hienthi,
+        mota: data.item.mota,
+        vitri: data.item.vitri,
+        id: data.item._id
+
       }
     },
     async taomoiOK (modal) {
 
       modal.preventDefault();
       try {
-        this.ov_taomoi = true;
-        await this.$strapi.$cauhinhbanggias.create(this.kieutaisan);
-        this.ov_taomoi = false;
-        this.kieutaisan = {
-          ghichu: '',
-          giamua: 0,
-          giaban: 0,
-          active: true,
+        this.ov_taomoikhay = true;
+        await this.$strapi.$khays.create(this.khay);
+        this.ov_taomoikhay = false;
+        this.khay = {
           ten: '',
-          tenhienthi: ''
+          hienthi: '',
+          mota: '',
+          vitri: ''
         }
-        this.$refs['taomoi'].hide()
+        this.$refs['taomoikhayvang'].hide()
         this.$nuxt.refresh()
       } catch (error) {
-        this.$bvToast.toast(`Tên tài sản đã có`, {
+        this.$bvToast.toast(`Lỗi đã có`, {
           title: 'Thông báo',
           variant: 'warning',
           autoHideDelay: 2000,
         })
-        this.ov_taomoi = false;
-        this.state_tentaisan = false;
+        this.ov_taomoikhay = false;
+
 
       }
 
     },
-    async chinhsuaOK (modal) {
+    async chinhsuakhayvangOK (modal) {
       modal.preventDefault();
 
       try {
-        await this.$strapi.$cauhinhbanggias.update(this.tempkieutaisan.id, {
-          ghichu: this.tempkieutaisan.ghichu,
-          giamua: this.tempkieutaisan.giamua,
-          giaban: this.tempkieutaisan.giaban,
-          active: this.tempkieutaisan.active,
-          ten: this.tempkieutaisan.ten,
-          hienthi: this.tempkieutaisan.hienthi
+        await this.$strapi.$khays.update(this.tempkhay.id, {
+
+          ten: this.tempkhay.ten,
+          hienthi: this.tempkhay.hienthi,
+          mota: this.tempkhay.mota,
+          vitri: this.tempkhay.vitri
         })
         this.tempkieutaisan = {
-          id: '',
-          ghichu: '',
-          giamua: 0,
-          giaban: 0,
-          active: true,
           ten: '',
-          hienthi: ''
+          hienthi: '',
+          mota: '',
+          vitri: ''
         }
-        this.$refs['chinhsua'].hide()
+        this.$refs['chinhsuakhayvang'].hide()
         this.$nuxt.refresh()
       } catch (error) {
         this.$bvToast.toast(`Tên tài sản đã có`, {
@@ -335,7 +288,20 @@ export default {
     }
   },
   async fetch () {
-    this.kieubanggia = await this.$strapi.$cauhinhbanggias.find();
+    this.ov_taomoikhay = false;
+    this.khays = await this.$strapi.$khays.find();
+    this.danhsachkhays = await this.$strapi.$danhsachkhays.find()
+
+    let optionsK = []
+    this.danhsachkhays.forEach(item => {
+      optionsK.push({
+        value: item.vitri,
+        text: item.hienthi
+      })
+    })
+    this.optionDanhsachkhays = optionsK
+    this.ov_taomoikhay = true;
+
   }
 }
 </script>

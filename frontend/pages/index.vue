@@ -39,6 +39,7 @@ export default {
         <bang-gia />
       </div>
       <div class="col-xl-4 col-lg-12">
+
         <bang-gia-mihong />
       </div>
       <div class="col-xl-4 col-lg-12">

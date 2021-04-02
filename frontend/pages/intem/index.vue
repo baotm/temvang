@@ -2,7 +2,7 @@
 <template>
   <div>
     <PageHeader
-      :title="title"
+      title="Danh sách tem"
       :items="items"
     />
     <b-overlay :show="ov_tablesanpham">
@@ -27,7 +27,7 @@
                   <div class="col">
                     <div class="py-1">
                       <i class="bx bx-dollar font-24"></i>
-                      <h3>{{daban}}</h3>
+                      <h3>{{chuain}}</h3>
                       <p class="text-uppercase mb-1 font-13 font-weight-medium">
                         Tổng Sản Phẩm Chưa In Tem
                       </p>
@@ -44,9 +44,37 @@
           <div class="card">
             <div class="card-body">
               <div class="row mb-2">
-                <div class="col-sm-6">
-                  <b-button>In Toàn Bộ Sản Phẩm</b-button>
 
+                <div class="col-11">
+                  <b-button
+                    @click="selectAllSanPham"
+                    variant="success"
+                  >
+                    <i class="mdi mdi-select-group"></i>
+                    Chọn tất cả
+                  </b-button>
+                  <b-button
+                    @click="unselectAllSanPham"
+                    variant="warning"
+                  >
+                    <i class="mdi mdi-select-all"></i>
+                    Bỏ chọn
+                  </b-button>
+                  <b-button variant="info">
+                    <div>Đã chọn : {{selected.length}}</div>
+
+                  </b-button>
+
+                </div>
+                <div class="col-1">
+                  <b-button
+                    @click="intemsanpham"
+                    variant="success"
+                    :disabled="btnPrintStatus"
+                  >
+                    <i class="mdi mdi-cloud-print-outline"></i>
+
+                  </b-button>
                 </div>
 
               </div>
@@ -54,6 +82,7 @@
               <!-- Table -->
               <div class="table-responsive mb-0">
                 <b-table
+                  selectable
                   show-empty
                   ref="table-sanpham"
                   table-class="table table-centered w-100"
@@ -62,6 +91,7 @@
                   :fields="fields"
                   responsive="sm"
                   class="text-center"
+                  @row-selected="onRowSelected"
                 >
 
                   <template #cell(ten)="data">
@@ -72,180 +102,37 @@
                     <b-badge variant="success"> {{data.item.masanpham}} </b-badge>
 
                   </template>
-                  <template #cell(trongluongvang)="data">
-                    {{$formatSoVang(data.item.thongtinvatly.trongluongvang)}}
+                  <template #cell(trongluongtong)="data">
+
+                    {{$formatSoVang(data.item.thongtinvatly.trongluongtong)}}
                   </template>
-                  <template #cell(tinhtrang)="data">
-                    <div class="text-center">
-                      <i
-                        class="fas fa-circle blink_me "
-                        :style="[data.item.tinhtrang?{'color':'green'}:{'color':'gray'}]"
-                      ></i>
-                    </div>
+                  <template #cell(trongluonghot)="data">
+
+                    {{$formatSoVang(data.item.thongtinvatly.trongluonghot)}}
+                  </template>
+                  <template #cell(tiencongnhap)="data">
+                    <code>$ {{data.item.thongtinvatly.tiencongnhap}}</code>
+
+                  </template>
+                  <template #cell(tiencongxuat)="data">
+                    <code>$ {{data.item.thongtinvatly.tiencongxuat}}</code>
+
+                  </template>
+                  <template #cell(X)="data">
+
+                    {{data.item.thongtinvatly.nhacungcap}}
+                  </template>
+                  <template #cell(loai)="data">
+                    {{data.item.thongtinvatly.loaisanpham}}
                   </template>
 
-                  <template #cell(tiencongxuat)="data">
-                    <code> $ {{data.item.thongtinvatly.tiencongxuat}}</code>
+                  <template #cell(trongluongvang)="data">
+                    {{$formatSoVang(data.item.thongtinvatly.trongluongvang)}}
                   </template>
                   <template #cell(ngaytao)="data">
                     <code> {{$moment(data.item.createdAt).format('hh:mm MM-DD-YYYY')}}</code>
                   </template>
 
-                  <template #cell(tool)="data">
-                    <ul class="list-inline table-action m-0">
-                      <li class="list-inline-item">
-
-                        <a
-                          href="javascript:void(0);"
-                          class="action-icon"
-                          @click="printToPubnud(data.item._id)"
-                        >
-                          <i class="mdi mdi-cloud-print"></i></a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a
-                          href="javascript:void(0);"
-                          class="action-icon"
-                        >
-                          <i class="mdi mdi-square-edit-outline"></i></a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a
-                          href="javascript:void(0);"
-                          class="action-icon"
-                          @click="delete_sanpham(data.item._id)"
-                        >
-                          <i class="mdi mdi-delete"></i></a>
-                      </li>
-                    </ul>
-                  </template>
-                  <template #cell(chitiet)="data">
-                    <b-button
-                      size="sm"
-                      @click="data.toggleDetails"
-                      class="mr-2"
-                      variant="primary"
-                    >
-                      {{ data.detailsShowing ? 'Hide' : 'Show'}}
-                    </b-button>
-
-                  </template>
-
-                  <template #row-details="data">
-                    <div class="row">
-
-                      <div class="col-6">
-                        <div class="card ribbon-box">
-                          <div class="card-body text-center">
-                            <div class="ribbon-two ribbon-two-pink">
-                              <span>Chi tiết</span>
-                            </div>
-                            <table class="table table-borderless table-sm tensanpham">
-                              <tbody>
-                                <tr>
-                                  <th scope="row">Tên sản phẩm :</th>
-                                  <td class="text-muted">{{data.item.thongtinvatly.ten}}</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">Kiểu sản phẩm :</th>
-                                  <td class="text-muted">
-                                    <nuxt-link :to="'/sanpham/'+getkieusanpham(data.item.thongtinvatly.kieusanpham).id"> {{getkieusanpham(data.item.thongtinvatly.kieusanpham).hienthi}}</nuxt-link>
-
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">Mã sản phẩm :</th>
-                                  <td class="text-muted">{{data.item.masanpham}}</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">Tình trạng :</th>
-                                  <i
-                                    class="fas fa-circle blink_me "
-                                    :style="[data.item.tinhtrang?{'color':'green'}:{'color':'gray'}]"
-                                  ></i>
-
-                                </tr>
-                                <tr>
-                                  <th scope="row">Loại vàng :</th>
-                                  <td class="text-muted">
-
-                                    {{getloaisanpham(data.item.thongtinvatly.loaisanpham).hienthi}}
-
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">Nhà cung cấp :</th>
-                                  <td class="text-muted">
-                                    <nuxt-link :to="'/sanpham/'+getnhacungcap(data.item.thongtinvatly.nhacungcap).id"> {{getnhacungcap(data.item.thongtinvatly.nhacungcap).hienthi}}</nuxt-link>
-
-                                  </td>
-                                </tr>
-
-                              </tbody>
-                            </table>
-
-                          </div>
-                          <!-- end card-box -->
-                        </div>
-                      </div>
-                      <div class="col-6">
-                        <div class="card">
-                          <div class="card-body text-center">
-
-                            <table class="table table-borderless table-sm">
-                              <tbody>
-                                <tr>
-                                  <th scope="row">Ngày thêm sản phẩm :</th>
-                                  <td class="text-muted">{{$moment(data.item.createdAt).format('hh:mm DD/MM/YYYY')}}</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">Trọng lượng tổng :</th>
-
-                                  <td class="text-muted">
-
-                                    <span class="badge badge-soft-success "> {{$formatSoVang(data.item.thongtinvatly.trongluongtong)}}</span>
-
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">Trọng lượng hột :</th>
-                                  <td class="text-muted"> <span class="badge badge-soft-primary "> {{$formatSoVang(data.item.thongtinvatly.trongluonghot)}}</span>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">Trọng lượng vàng :</th>
-
-                                  <td class="text-muted"> <span class="badge badge-soft-warning "> {{$formatSoVang(data.item.thongtinvatly.trongluongvang)}}</span>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">Tiền công nhập :</th>
-                                  <td class="text-muted">$<code>{{data.item.thongtinvatly.tiencongnhap}}</code></td>
-                                </tr>
-
-                                <tr>
-                                  <th scope="row">Tiền công xuất :</th>
-                                  <td class="text-muted">$<code>{{data.item.thongtinvatly.tiencongxuat}}</code> </td>
-                                </tr>
-                              </tbody>
-                            </table>
-
-                          </div>
-                          <!-- end card-box -->
-                        </div>
-                      </div>
-
-                      <div class="col-12 text-center ">
-                        <b-button
-                          size="sm"
-                          variant="warning"
-                          @click="data.toggleDetails"
-                        >Hide Details</b-button>
-
-                      </div>
-                    </div>
-
-                  </template>
                 </b-table>
               </div>
 
@@ -259,49 +146,48 @@
 
 <script>
 export default {
-  head () {
-    return {
-      title: `${this.title}`,
-    };
-  },
+
   async fetch () {
     this.ov_tablesanpham = true;
-    let p7 = this.$strapi.$sanphams.find({ soluongtem: 0 })
-    let p4 = this.$strapi.$sanphams.count()
-    let p5 = this.$strapi.$sanphams.count({ tinhtrang: false })
+
     let p1 = this.$strapi.$cauhinhnhacungcaps.find();
-    let p2 = this.$strapi.$cauhinhmathangs.find();
-    let p3 = this.$strapi.$cauhinhbanggias.find()
-    let p6 = this.$strapi.$khays.count()
-    Promise.all([p1, p2, p3, p4, p5, p6, p7]).then(data => {
+    let p2 = this.$strapi.$sanphams.find({ soluongtem: 0, _limit: 24 },)
+    let p3 = this.$strapi.$sanphams.count({ soluongtem_gt: 0 })
+    let p4 = this.$strapi.$cauhinhbanggias.find()
+    Promise.all([p1, p2, p3, p4]).then(data => {
 
       this.listnhacungcap = data[0]
-      this.listloaisanpham = data[1]
-      this.listbanggia = data[2]
-      this.title = `Danh sách sản phẩm [${data[4]}/${data[3]}]`
-      this.tongsanpham = data[3]
-      this.daban = data[4]
-      this.khay = data[5]
-      this.listsanpham = data[6]
+      this.chuain = data[1].length;
+      this.listsanpham = data[1]
+      this.tongsanpham = data[2]
+      this.listbanggia = data[3]
+      //format data 
+
+      for (let i = 0; i < this.listsanpham.length; i++) {
+        //nhacungcap
+        //   this.listsanpham[i].thongtinvatly.nhacungcap = this.getnhacungcap(this.listsanpham[i].thongtinvatly)
+        this.listsanpham[i].thongtinvatly.nhacungcap = (this.getnhacungcap(this.listsanpham[i].thongtinvatly.nhacungcap)).hienthi
+        this.listsanpham[i].thongtinvatly.loaisanpham = (this.getloaisanpham(this.listsanpham[i].thongtinvatly.loaisanpham)).hienthi
+
+      }
       this.ov_tablesanpham = false;
     })
   },
   data () {
     return {
-      khay: 0,
+      listnhacungcap: [],
+      listloaisanpham: [],
+      listbanggia: [],
+      selected: [],
       tongsanpham: 0,
-      daban: 0,
-      conlai: 0,
-
-      isBusy: false,
+      chuain: 0,
       listsanpham: [],
       ov_tablesanpham: false,
-      title: "Danh sách sản phẩm [30/293]",
       items: [{
         text: "Home"
       },
       {
-        text: "Sản phẩm"
+        text: "In Tem Sản Phẩm"
       },
       {
         text: "Danh sách",
@@ -316,44 +202,67 @@ export default {
 
         }, {
           key: 'masanpham',
-          label: 'Mã sản phẩm',
+          label: 'Mã',
+
+        }, {
+          key: 'trongluongtong',
+          label: 'K.L.T',
+
+        }, {
+          key: 'trongluonghot',
+          label: 'K.L.H',
 
         }, {
           key: 'trongluongvang',
-          label: 'Trọng lượng vàng',
+          label: 'K.L.V',
 
         },
         {
-          key: 'tinhtrang',
-          label: 'Tình trạng',
+          key: 'tiencongnhap',
+          label: 'C.Nhập',
+
+        }, {
+          key: 'tiencongxuat',
+          label: 'C.Xuất',
+
+        }, {
+          key: 'X',
+          label: 'X',
+
+        },
+        {
+          key: 'loai',
+          label: 'Loại',
 
         },
         {
           key: 'ngaytao',
           label: 'Ngày tạo',
 
-        }, {
-          key: 'tiencongxuat',
-          label: 'Tiền công xuất',
-
-        }, {
-          key: 'chitiet',
-          label: 'Chi tiết'
-        }, {
-          key: 'tool',
-          label: 'Tool'
         },
       ],
-      listnhacungcap: [],
-      listloaisanpham: [],
-      listbanggia: [],
-      printserver: this.$pnGetMessage('printserver')
     };
   },
+  computed: {
+    btnPrintStatus () {
+      if (this.selected.length > 0) {
+        return false
+      } else {
+        return true
+      }
+    }
+  },
   methods: {
-    /**
-     * Search the table data with search input
-     */
+
+    onRowSelected (items) {
+      this.selected = items
+    },
+    selectAllSanPham () {
+      this.$refs["table-sanpham"].selectAllRows()
+    },
+    unselectAllSanPham () {
+      this.$refs["table-sanpham"].clearSelected()
+    },
     printToPubnud (id) {
       //send msgBoxConfirm
       this.$pnPublish(
@@ -365,27 +274,7 @@ export default {
       );
       // console.log(this.$pnGetMessage('printserver'))
     },
-    delete_sanpham (id) {
 
-      this.$bvModal
-        .msgBoxConfirm("Bạn muốn xóa ", {
-          title: "Xác nhận",
-          size: "sm",
-          buttonSize: "sm",
-          okVariant: "success",
-          headerClass: "p-2 border-bottom-0",
-          footerClass: "p-2 border-top-0",
-          centered: true,
-        })
-        .then((value) => {
-          if (value) {
-            this.$strapi.$sanphams.delete(id).then((a) => {
-              this.$refs["table-sanpham"].refresh();
-
-            });
-          }
-        });
-    },
     formatDay (d) {
       this.$moment(d).format('hh:mm dd-MM-YYYY')
     },
@@ -400,17 +289,6 @@ export default {
 
       return ncc
     },
-    getkieusanpham (id) {
-      let ksp;
-      this.listloaisanpham.forEach(item => {
-        if (item._id == id) {
-          ksp = item;
-          return
-        }
-      })
-
-      return ksp
-    },
     getloaisanpham (id) {
       //loai vangv9999, v980
       let loaivang;
@@ -423,14 +301,58 @@ export default {
 
       return loaivang
     },
+    intemsanpham () {
+      this.ov_tablesanpham = true
+      let str = ""
+      let list_id = []
+      str = "intemsanpham=["
+      this.selected.forEach((item, index) => {
+        list_id.push(item._id)
+        let t = {
+          "ten": item.thongtinvatly.ten,
+          "klt": this.$formatSoVang(item.thongtinvatly.trongluongtong),
+          "klv": this.$formatSoVang(item.thongtinvatly.trongluongvang),
+          "klh": this.$formatSoVang(item.thongtinvatly.trongluonghot),
+          "c": item.thongtinvatly.tiencongxuat,
+          "cty": item.thongtinvatly.nhacungcap,
+          "mavach": item.masanpham,
+          "loaivang": item.thongtinvatly.loaisanpham,
+        }
+        str += JSON.stringify(t)
+        let a = this.selected.length - 1;
+        if (index != a) {
+          str += ","
+        }
+      })
+      str += "]"
+      this.$pnPublish(
+        {
+          channel: 'printserver',
+          message: {
+            entry: 'admin',
+            update: str
+          }
+        }, (status, response) => {
 
+          if (status.statusCode === 200) {
+            //set tem
+            let arrayPromise = []
+            for (let i = 0; i < list_id.length; i++) {
+              arrayPromise.push(this.$strapi.$sanphams.update(list_id[i], {
+                soluongtem: 1
+              }))
+            }
+            Promise.all(arrayPromise).then(data => {
+              this.ov_tablesanpham = false
+              this.$nuxt.refresh()
+            })
+
+          }
+        });
+    }
 
   },
-  mounted () {
-    this.$pnSubscribe({
-      channels: ['printserver']
-    });
-  },
+
 };
 </script>
 <style scoped>

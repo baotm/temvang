@@ -29,7 +29,7 @@ export default {
   /*
   ** Global CSS
   */
-  css: ["~/assets/scss/app.scss", 'quill/dist/quill.core.css', 'quill/dist/quill.snow.css', 'quill/dist/quill.bubble.css'],
+  css: ["~/assets/scss/app.scss"],
   /*
   ** Plugins to load before mounting the App
   ** https://nuxtjs.org/guide/plugins
@@ -37,18 +37,8 @@ export default {
   plugins: [
     "~/plugins/pubnub.js",
     "~/plugins/formatSoVang.js",
-    "~/plugins/simplebar.js",
-    "~/plugins/vue-click-outside.js",
-    "~/plugins/vuelidate.js",
-    "~/plugins/draggable.js",
-    "~/plugins/vue-slidebar.js",
-    "~/plugins/tour.js",
-    "~/plugins/vue-lightbox.js",
     "~/plugins/mask.js",
-    "~/plugins/quill-editor.js",
-    "~/plugins/chartist.js",
-    "~/plugins/vue-googlemap.js",
-    "~/plugins/string-filter"
+    "~/plugins/simplebar.js",
   ],
   /*
   ** Auto import components
@@ -79,20 +69,18 @@ export default {
       'cauhinhnhacungcaps',
       'khays',
       'countsanpham',
-      'sanphams'
+      'sanphams',
+      'danhsachkhays'
     ]
   },
   i18n: {
-    locales: ['en', 'fr', 'es', 'ar'],
+    locales: ['en'],
     defaultLocale: 'en',
     vueI18n: {
       fallbackLocale: 'en',
       messages: {
         en: require('./locales/en.json'),
-        fr: require('./locales/fr.json'),
-        es: require('./locales/es.json'),
-        ar: require('./locales/ar.json'),
-        zh: require('./locales/zh.json')
+
       }
     }
   },
@@ -101,6 +89,7 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
+    parallel: true
   },
   env: {
     auth: process.env.VUE_APP_DEFAULT_AUTH,

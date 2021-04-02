@@ -16,6 +16,7 @@
           <b-table
             bordered
             hover
+            fixed
             :busy="!listnhacungcap"
             head-variant="light"
             :items="listnhacungcap"
@@ -26,7 +27,6 @@
               {{ data.index + 1 }}
             </template>
 
-      
             <template #cell(tool)="data">
 
               <b-button
@@ -83,20 +83,20 @@
                 required
               ></b-form-input>
             </b-form-group>
-         
-  <b-form-group label="Điện thoại:">
+
+            <b-form-group label="Điện thoại:">
               <b-form-input
                 v-model="nhacungcap.dienthoai"
                 required
               ></b-form-input>
             </b-form-group>
-           <b-form-group label="Địa chỉ">
+            <b-form-group label="Địa chỉ">
               <b-form-input
                 v-model="nhacungcap.diachi"
                 required
               ></b-form-input>
             </b-form-group>
-         
+
             <b-form-group label="Ghi Chú:">
               <b-form-input
                 v-model="nhacungcap.ghichu"
@@ -128,7 +128,7 @@
               required
             ></b-form-input>
           </b-form-group>
-         
+
           <b-form-group label="Số điện thoại:">
             <b-form-input v-model="tempnhacungcap.dienthoai"></b-form-input>
           </b-form-group>
@@ -179,7 +179,7 @@ export default {
           key: 'dienthoai',
           label: 'Sdt',
           sortable: true
-        },  {
+        }, {
           key: 'ghichu',
           label: 'Ghi chú'
         },
@@ -214,7 +214,7 @@ export default {
         dienthoai: data.item.dienthoai,
         ten: data.item.ten,
         hienthi: data.item.hienthi,
-        diachi:data.item.diachi
+        diachi: data.item.diachi
       }
     },
     async taomoiOKnhacungcap (modal) {
@@ -225,12 +225,12 @@ export default {
         await this.$strapi.$cauhinhnhacungcaps.create(this.nhacungcap);
         this.ov_nhacungcaotaomoi = false;
         this.nhacungcap = {
-        id: '',
-        ghichu: '',
-        diachi: '',
-        dienthoai: '',
-        ten: '',
-        hienthi: ''
+          id: '',
+          ghichu: '',
+          diachi: '',
+          dienthoai: '',
+          ten: '',
+          hienthi: ''
         }
         this.$refs['taomoinhacungcap'].hide()
         this.$nuxt.refresh()
@@ -258,12 +258,12 @@ export default {
           hienthi: this.tempnhacungcap.hienthi
         })
         this.tempnhacungcap = {
-            id: '',
-        ghichu: '',
-        diachi: '',
-        dienthoai: '',
-        ten: '',
-        hienthi: ''
+          id: '',
+          ghichu: '',
+          diachi: '',
+          dienthoai: '',
+          ten: '',
+          hienthi: ''
         }
         this.$refs['chinhsuanhacungcap'].hide()
         this.$nuxt.refresh()

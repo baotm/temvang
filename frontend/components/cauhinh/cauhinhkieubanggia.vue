@@ -16,6 +16,7 @@
           <b-table
             bordered
             hover
+            fixed
             :busy="!kieubanggia"
             head-variant="light"
             :items="kieubanggia"

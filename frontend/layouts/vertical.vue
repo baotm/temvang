@@ -78,6 +78,5 @@ export default {
       </div>
       <Footer />
     </div>
-    <Rightbar />
   </div>
 </template>

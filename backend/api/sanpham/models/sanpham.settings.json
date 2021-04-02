@@ -23,8 +23,8 @@
       "default": true
     },
     "khay": {
-      "model": "khay",
-      "via": "sanphams"
+      "via": "sanphams",
+      "model": "khay"
     },
     "soluongtem": {
       "type": "integer",

@@ -110,11 +110,35 @@
     }
   },
   "menuitems": {
+    "tem": {
+      "text": "In Tem"
+    },
+    "cauhinh": {
+      "text": "Cấu hình"
+    },
+    "sanpham": {
+      "text": "Sản Phẩm",
+      "list": {
+        "index": "Toàn Bộ Sản Phẩm",
+        "new": "Thêm Sản Phẩm"
+      }
+    },
+    "banggia": {
+      "text": "Bảng giá"
+    },
+    "khay": {
+      "text": "Khay vàng",
+      "list": {
+        "index": "Toàn bộ khay",
+        "new": "Thêm khay",
+        "check": "Kiểm Khay"
+      }
+    },
     "navigation": {
       "text": "Navigation"
     },
-    "trangchu":{
-      "text":"Trang chủ"
+    "trangchu": {
+      "text": "Trang chủ"
     },
     "dashboard": {
       "text": "Dashboards",

@@ -15,4 +15,10 @@ module.exports = {
         })
         ctx.send(result)
     },
+    async selectkhaywhensanphamavailable (ctx) {
+        const result = await strapi.query('khay').model.find();
+        //filter san pham
+
+        ctx.send(result)
+    },
 };

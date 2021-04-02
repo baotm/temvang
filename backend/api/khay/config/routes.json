@@ -7,51 +7,38 @@
     },
     {
       "method": "GET",
+      "path": "/khays/selectkhaywhensanphamavailable",
+      "handler": "khay.findonlyname"
+    },
+    {
+      "method": "GET",
       "path": "/khays",
-      "handler": "khay.find",
-      "config": {
-        "policies": []
-      }
+      "handler": "khay.find"
     },
     {
       "method": "GET",
       "path": "/khays/count",
-      "handler": "khay.count",
-      "config": {
-        "policies": []
-      }
+      "handler": "khay.count"
     },
     {
       "method": "GET",
       "path": "/khays/:id",
-      "handler": "khay.findOne",
-      "config": {
-        "policies": []
-      }
+      "handler": "khay.findOne"
     },
     {
       "method": "POST",
       "path": "/khays",
-      "handler": "khay.create",
-      "config": {
-        "policies": []
-      }
+      "handler": "khay.create"
     },
     {
       "method": "PUT",
       "path": "/khays/:id",
-      "handler": "khay.update",
-      "config": {
-        "policies": []
-      }
+      "handler": "khay.update"
     },
     {
       "method": "DELETE",
       "path": "/khays/:id",
-      "handler": "khay.delete",
-      "config": {
-        "policies": []
-      }
+      "handler": "khay.delete"
     }
   ]
 }
